@@ -7,11 +7,9 @@
 }
 
 .content-area {
-  margin-top: 50px;
   display: flex;
   width: 100%;
-  height: calc(100vh - 50px); /* Adjust to header height */
-  position: relative; /* Set relative position for stacking context */
+  height: calc(100vh - 60px); /* Adjust to header height */
 }
 
 .sideNav {
@@ -19,7 +17,6 @@
   background-color: #f1f1f1;
   height: 100%;
   overflow-y: auto;
-  position: relative; /* Ensure it's positioned correctly */
 }
 
 .sideNav.open {
@@ -34,8 +31,7 @@
   flex-grow: 1;
   padding: 20px;
   transition: margin-left 0.3s ease;
-  margin-left: 240px; /* Default for larger screens */
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  margin-left: 240px;
 }
 
 .video-section {
@@ -49,7 +45,7 @@
 
 @media (max-width: 992px) {
   .videocontent {
-    margin-left: 0; /* No margin for mobile */
+    margin-left: 0;
   }
 
   .sideNav {
@@ -57,18 +53,18 @@
     z-index: 9;
     width: 240px;
     height: 100%;
-    left: -240px; /* Start hidden off-screen */
+    left: -240px;
   }
 
   .sideNav.open {
-    left: 0; /* Slide in */
+    left: 0;
   }
 
   .sideNav.closed {
-    left: -240px; /* Slide out */
+    left: -240px;
   }
 
   .videocontent {
-    padding: 10px; /* Adjust padding for mobile */
+    padding: 10px;
   }
 }
