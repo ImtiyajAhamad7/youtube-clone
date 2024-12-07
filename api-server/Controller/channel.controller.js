@@ -1,5 +1,5 @@
-import Channel from "../models/Channel.js";
-import Video from "../models/Video.js";
+import Channel from "../Model/channel.model.js";
+import Video from "../Model/video.model.js";
 
 // Create a new channel
 export const createChannel = async (req, res) => {
@@ -28,7 +28,8 @@ export const getAllChannels = async (req, res) => {
 export const getChannelById = async (req, res) => {
   try {
     const { id } = req.params;
-    const channel = await Channel.findById(id).populate("videos"); // Populate videos
+    console.log(`id`, id);
+    const channel = await Channel.findOne({ owner: id }).populate("videos"); // Populate videos
     if (!channel) return res.status(404).json({ error: "Channel not found" });
     res.status(200).json(channel);
   } catch (error) {

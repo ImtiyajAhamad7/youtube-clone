@@ -62,14 +62,4 @@ const VideoCard = ({
   );
 };
 
-VideoCard.propTypes = {
-  image: PropTypes.string,
-  title: PropTypes.string,
-  views: PropTypes.string,
-  time: PropTypes.string,
-  channelImage: PropTypes.string,
-  channelName: PropTypes.string,
-  videoId: PropTypes.string.isRequired,
-};
-
 export default VideoCard;

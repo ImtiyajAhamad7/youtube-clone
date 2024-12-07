@@ -8,12 +8,14 @@ const Header = ({ open, setOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
-
+  const d = sessionStorage.getItem("accessToken");
   const handleLogin = () => {
     navigate("/login");
   };
 
   const handleLogout = () => {
+    sessionStorage.removeItem("accessToken");
+    setUserData(null);
     logout();
     navigate("/login");
   };
@@ -31,8 +33,7 @@ const Header = ({ open, setOpen }) => {
     };
 
     fetchUserData();
-  }, []); // Empty dependency array means this runs once when the component mounts
-
+  }, [d]);
   return (
     <nav className="navbar navbar-light bg-light px-4">
       <div className="d-flex align-items-center gap-3">
@@ -90,9 +91,9 @@ const Header = ({ open, setOpen }) => {
             </button>
             {dropdownOpen && (
               <div className="dropdown-menu dropdown-menu-start show">
-                <Link to="/profile" className="dropdown-item">
+                <Link to="/channelPage" className="dropdown-item">
                   <FaUserCircle className="me-2" />
-                  My Profile
+                  channel
                 </Link>
                 <button className="dropdown-item" onClick={handleLogout}>
                   Logout

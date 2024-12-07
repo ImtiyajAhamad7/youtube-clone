@@ -72,3 +72,54 @@
     padding: 10px; /* Adjust padding for mobile */
   }
 }
+
+/* Custom styles for the Comment component */
+.comment-container {
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.time {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.comment-text {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.reply-section {
+  margin-top: 10px;
+}
+
+.reply-box {
+  margin-top: 0.5rem;
+}
+
+.replies-container {
+  margin-top: 1rem;
+}
+
+.reply {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+.reply-button {
+  font-size: 0.9rem;
+}
+
+.reply-user-name {
+  font-weight: bold;
+}

@@ -33,17 +33,14 @@ const HomePage = () => {
       ) : (
         <div className="row">
           {videos.map((video) => (
-            <div
-              key={video._id}
-              className="col-12 col-sm-6 col-md-4 mb-4" // Responsive classes for 1-3 videos per row
-            >
+            <div key={video._id} className="col-12 col-sm-6 col-md-4 mb-4">
               <VideoCard
-                image={video.thumbnailUrl} // Use the thumbnail URL from the video data
-                title={video.title} // Video title
-                views={video.views} // Actual views from the data
-                time={new Date(video.createdAt).toLocaleDateString()} // Format the created date
-                channelImage={video.channelId.profileImage}
-                channelName={video.channelId.channelName}
+                image={video.thumbnailUrl}
+                title={video.title}
+                views={video.views}
+                time={new Date(video.createdAt).toLocaleDateString()}
+                channelImage={video.channelId?.profileImage}
+                channelName={video.channelId?.channelName}
                 videoId={video._id}
               />
             </div>

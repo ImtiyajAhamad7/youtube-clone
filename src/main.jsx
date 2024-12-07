@@ -4,11 +4,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
 import { lazy } from "react";
+// import WatchPage from "./components/WatchPage.jsx";
 
 const App = lazy(() => import("./App.jsx"));
 const Login = lazy(() => import("./components/Login.jsx"));
 const SignUp = lazy(() => import("./components/SignUp.jsx"));
 const HomePage = lazy(() => import("./components/HomePage.jsx"));
+const ChannelForm = lazy(() => import("./components/ChannelForm.jsx"));
+const ChannelPage = lazy(() => import("./components/ChannelPage.jsx"));
+const WatchPage = lazy(() => import("./components/WatchPage.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -36,10 +40,26 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/login",
+        path: "/channelForm",
         element: (
           <Suspense fallback={<div>loading...</div>}>
-            <Login />
+            <ChannelForm />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/channelPage",
+        element: (
+          <Suspense fallback={<div>loading...</div>}>
+            <ChannelPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/video/:id",
+        element: (
+          <Suspense fallback={<div>loading...</div>}>
+            <WatchPage />
           </Suspense>
         ),
       },

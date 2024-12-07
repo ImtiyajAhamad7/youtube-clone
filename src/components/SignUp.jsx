@@ -42,7 +42,7 @@ const SignUp = () => {
     setSuccessMessage("");
 
     try {
-      const response = Fetch(`user`, "POST", userdata);
+      const response = await Fetch(`user`, "POST", userdata);
 
       if (response) {
         setSuccessMessage("User registered successfully!");

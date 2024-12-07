@@ -1,64 +1,94 @@
-import React, { useState } from "react";
-import Comment from "./Comment";
+import React, { useEffect, useState } from "react";
+import Comment from "./Comment"; // Assuming this is your Comment component.
+import { Fetch } from "../utils/Fetch";
 
-const CommentSection = () => {
-  const [comments, setComments] = useState([
-    { id: 1, text: "This video is amazing!", replies: [] },
-    { id: 2, text: "Loved the content!", replies: [] },
-  ]);
+const CommentSection = ({ id }) => {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState(""); // State to track new comment input.
 
-  const [newComment, setNewComment] = useState("");
+  useEffect(() => {
+    async function fetchCommentData() {
+      try {
+        const response = await Fetch(`getComments/${id}`, `GET`);
+        const data = await response.json();
 
-  const handleAddComment = () => {
-    if (newComment.trim()) {
-      setComments([
-        ...comments,
-        { id: Date.now(), text: newComment, replies: [] },
-      ]);
-      setNewComment("");
+        setComments(data);
+      } catch (err) {}
     }
+
+    fetchCommentData();
+  }, [id]);
+
+  // Handler to add a new comment
+  const handleAddComment = async () => {
+    if (newComment.trim()) {
+      const newCommentObj = {
+        text: newComment,
+        userId: sessionStorage.getItem("userId"),
+        replies: [],
+      };
+
+      // Update the comments state with the new comment
+      setComments((prevComments) => [...prevComments, newCommentObj]);
+
+      // Optionally clear the input after adding the comment
+      setNewComment("");
+
+      try {
+        const response = await Fetch(
+          `postComment/${id}`,
+          "POST",
+          newCommentObj
+        );
+      } catch (err) {}
+    }
+    // Handler to add a reply to a comment
+    // const handleAddReply = (commentId, replyText) => {
+    //   if (replyText.trim()) {
+    //     const updatedComments = comments.map((comment) => {
+    //       if (comment.id === commentId) {
+    //         return {
+    //           ...comment,
+    //           replies: [
+    //             ...comment.replies,
+    //             { id: Date.now(), text: replyText }, // Add a reply with unique ID
+    //           ],
+    //         };
+    //       }
+    //       return comment;
+    //     });
+
+    //     setComments(updatedComments);
+    //   }
   };
 
   return (
-    <div style={{ width: "100%", maxWidth: "600px", margin: "auto" }}>
+    <div className="container my-4" style={{ maxWidth: "600px" }}>
       <h3>Comments</h3>
       <div>
-        {comments.map((comment) => (
+        {comments?.map((comment) => (
           <Comment
             key={comment.id}
             comment={comment}
-            onReply={(replyText) => {
-              const updatedComments = comments.map((c) => {
-                if (c.id === comment.id) {
-                  return {
-                    ...c,
-                    replies: [
-                      ...c.replies,
-                      { id: Date.now(), text: replyText },
-                    ],
-                  };
-                }
-                return c;
-              });
-              setComments(updatedComments);
-            }}
+            onReply={(replyText) => handleAddReply(comment.id, replyText)}
           />
         ))}
       </div>
-      <div style={{ marginTop: "1rem" }}>
-        <input
-          type="text"
-          placeholder="Add a comment..."
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          style={{ width: "80%", padding: "0.5rem" }}
-        />
-        <button onClick={handleAddComment} style={{ padding: "0.5rem" }}>
-          Comment
-        </button>
+      <div className="mt-4">
+        <div className="d-flex">
+          <input
+            type="text"
+            placeholder="Add a comment..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            className="form-control"
+          />
+          <button onClick={handleAddComment} className="btn btn-primary ms-2">
+            Comment
+          </button>
+        </div>
       </div>
     </div>
   );
 };
-
 export default CommentSection;

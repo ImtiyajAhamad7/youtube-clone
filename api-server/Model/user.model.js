@@ -31,6 +31,12 @@ const UserSchema = new Schema(
         ref: "Channel",
       },
     ],
+    comments: [
+      {
+        type: String,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -5,7 +5,8 @@ import VideoCard from "./VideoCard"; // Reusable component for each video card
 import { Fetch } from "../utils/Fetch"; // Fetch utility function
 
 const ChannelPage = () => {
-  const { id } = useParams(); // Get the channel ID from the URL
+  // const { id } = useParams(); // Get the channel ID from the URL
+  const id = sessionStorage.getItem("userId");
   const [channel, setChannel] = useState(null); // Channel details state
   const [loading, setLoading] = useState(true); // Loading state
 
@@ -27,7 +28,7 @@ const ChannelPage = () => {
   }, [id]);
 
   if (loading) return <p>Loading channel...</p>;
-  if (!channel) return <p>Channel not found.</p>;
+  // if (!channel) return <></><p>Channel not found.</p>;
 
   return (
     <div>
@@ -36,7 +37,7 @@ const ChannelPage = () => {
         className="channel-banner"
         style={{
           backgroundImage: `url(${
-            channel.channelBanner || "https://via.placeholder.com/1200x300"
+            channel?.channelBanner || "https://via.placeholder.com/1200x300"
           })`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -48,15 +49,17 @@ const ChannelPage = () => {
       <div className="container mt-4">
         <div className="d-flex align-items-center mb-4">
           <img
-            src={channel.profileImage || "https://via.placeholder.com/80"}
-            alt={channel.channelName}
+            src={channel?.profileImage || "https://via.placeholder.com/80"}
+            alt={channel?.channelName}
             className="rounded-circle"
             style={{ width: "80px", height: "80px", marginRight: "20px" }}
           />
           <div>
-            <h3 className="mb-0">{channel.channelName}</h3>
-            <p className="text-muted mb-1">{channel.subscribers} subscribers</p>
-            <p>{channel.description}</p>
+            <h3 className="mb-0">{channel?.channelName}</h3>
+            <p className="text-muted mb-1">
+              {channel?.subscribers} subscribers
+            </p>
+            <p>{channel?.description}</p>
           </div>
         </div>
       </div>
@@ -65,7 +68,7 @@ const ChannelPage = () => {
       <div className="container mt-4">
         <h4>Videos</h4>
         <div className="row">
-          {channel.videos.map((video) => (
+          {channel?.videos.map((video) => (
             <div className="col-md-4 col-sm-6 mb-4" key={video._id}>
               <VideoCard
                 videoId={video._id}
