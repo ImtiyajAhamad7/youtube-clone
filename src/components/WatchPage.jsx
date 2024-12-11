@@ -7,15 +7,7 @@ const WatchPage = () => {
   const [comments, setComments] = useState([]);
   const [video, setVideo] = useState([]);
   const [nextvid, setNext] = useState([]);
-  // const [commentText, setCommentText] = useState("");
 
-  // const handleCommentSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (commentText.trim()) {
-  //     setComments([...comments, commentText]);
-  //     setCommentText("");
-  //   }
-  // };
   const { id } = useParams();
 
   useEffect(() => {

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { Fetch } from "../utils/Fetch";
 const ChannelForm = () => {
   const [formData, setFormData] = useState({
     channelName: "",
     description: "",
     profileImage: "",
     channelBanner: "",
-    owner: "",
+    owner: sessionStorage.getItem("userId"),
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -25,15 +25,11 @@ const ChannelForm = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/channels", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await Fetch("channels", "POST", formData);
+      // const data = await response.json();
+      // const data = await response.json();
 
-      if (response.ok) {
+      if (data) {
         setSuccessMessage("Channel created successfully!");
         setFormData({
           channelName: "",
@@ -114,21 +110,6 @@ const ChannelForm = () => {
             id="channelBanner"
             name="channelBanner"
             value={formData.channelBanner}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="owner" className="form-label">
-            Owner ID
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="owner"
-            name="owner"
-            value={formData.owner}
             onChange={handleChange}
             required
           />

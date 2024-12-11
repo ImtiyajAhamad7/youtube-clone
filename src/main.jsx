@@ -56,6 +56,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/channelForm",
+        element: (
+          <Suspense fallback={<div>loading...</div>}>
+            <ChannelForm />
+          </Suspense>
+        ),
+      },
+      {
         path: "/video/:id",
         element: (
           <Suspense fallback={<div>loading...</div>}>

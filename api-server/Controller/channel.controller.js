@@ -4,6 +4,7 @@ import Video from "../Model/video.model.js";
 // Create a new channel
 export const createChannel = async (req, res) => {
   try {
+    console.log("here we are");
     const newChannel = new Channel(req.body);
     const savedChannel = await newChannel.save();
     res.status(201).json(savedChannel);

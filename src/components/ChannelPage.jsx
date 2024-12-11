@@ -3,18 +3,19 @@ import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VideoCard from "./VideoCard"; // Reusable component for each video card
 import { Fetch } from "../utils/Fetch"; // Fetch utility function
+import { useNavigate } from "react-router-dom";
 
 const ChannelPage = () => {
   // const { id } = useParams(); // Get the channel ID from the URL
   const id = sessionStorage.getItem("userId");
   const [channel, setChannel] = useState(null); // Channel details state
   const [loading, setLoading] = useState(true); // Loading state
-
+  const navigate = useNavigate();
   useEffect(() => {
     // Fetch channel details and videos
     const fetchChannel = async () => {
       try {
-        const response = await Fetch(`channels/${id}`, "GET"); // Fetch channel by ID
+        const response = await Fetch(`channels/${id}`, "GET");
         const data = await response.json();
         setChannel(data);
       } catch (error) {
@@ -27,11 +28,20 @@ const ChannelPage = () => {
     fetchChannel();
   }, [id]);
 
+  const handleAddChannel = () => {
+    navigate("/channelForm");
+  };
+
   if (loading) return <p>Loading channel...</p>;
   // if (!channel) return <></><p>Channel not found.</p>;
 
   return (
     <div>
+      <div className="container mt-4">
+        <button className="btn btn-primary mb-4" onClick={handleAddChannel}>
+          Add Channel
+        </button>
+      </div>
       {/* Channel Banner */}
       <div
         className="channel-banner"
